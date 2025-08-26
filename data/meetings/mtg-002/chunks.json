@@ -1,0 +1,10 @@
+{
+  "meeting_id": "mtg-002",
+  "title": "Demo2",
+  "chunks": [
+    {
+      "i": 0,
+      "text": "[00:00] Kickoff: goal is to ship MVP next week.\n[00:10] Action: Hamza to wire FastAPI endpoints by Friday.\n[00:20] Action: Sierra to create GitHub labels and boards."
+    }
+  ]
+}

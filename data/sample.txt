@@ -1,0 +1,6 @@
+Set-Content ..\data\sample.txt @"
+[00:00] Kickoff: goal is to ship MVP next week.
+[00:10] Action: Hamza to wire FastAPI endpoints by Friday.
+[00:20] Action: Sierra to create GitHub labels and boards.
+[00:30] Decision: We will use FAISS now and move to Qdrant Cloud later.
+"@
