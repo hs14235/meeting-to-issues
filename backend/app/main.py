@@ -1,4 +1,5 @@
-from fastapi import FastAPI, UploadFile, Form, Body
+from fastapi import FastAPI, UploadFile, Form, Body, HTTPException
+import httpx, traceback
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Dict, Any, List
 import hashlib, os
@@ -114,15 +115,16 @@ async def tasks(payload: Dict[str, Any] = Body(...)):
 
 @app.post("/issues")
 async def create_issues(payload: Dict[str, Any] = Body(...)):
+    try:
         """
         Body:
         {
-          "repo": "YOURUSER/YOURREPO",
+          "repo": "hs14235/meeting-to-issues",
           "meeting_id": "mtg-002",     # optional, adds source snippet
           "tasks": [
             { "title": "...", "body": "...", "labels": ["meeting-action"], "assignee_hint": "Hamza", "source_i": 0 }
         ],
-        "assignee_map": { "Hamza": "your-gh-username" }  # optional
+        "assignee_map": { "Hamza": "hs14235" }  # optional
        }
        """
         repo: str = payload["repo"]
@@ -161,3 +163,15 @@ async def create_issues(payload: Dict[str, Any] = Body(...)):
             issue = await create_issue(repo=repo, title=title, body=body, labels=labels, assignee=gh_user)
             created.append({"number": issue["number"], "url": issue["html_url"], "title": issue["title"]})
         return {"created": created}
+    except httpx.HTTPStatusError as e:
+        raise HTTPException(status_code=502, detail={
+            "where": "github",
+            "status": e.response.status_code,
+            "text": e.response.text
+        })
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={
+            "where": "server",
+            "error": str(e),
+            "trace_tail": traceback.format_exc().splitlines()[-4:],
+        })
