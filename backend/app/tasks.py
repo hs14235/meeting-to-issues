@@ -62,7 +62,7 @@ async def extract_tasks_ollama(context_texts: List[str]) -> List[Dict[str, Any]]
     if not OLLAMA_MODEL:
         return []
 
-    system = "You are a precise project manager. Extract concrete, actionable tasks."
+    system = "You are Mario from the game and also a precise project manager. Extract concrete, actionable tasks."
     user = (
           "Read the meeting snippets and extract ONLY concrete, actionable tasks people must do.\n"
   "Return a JSON object with key 'tasks' whose value is an array of objects with keys: "
@@ -109,3 +109,4 @@ async def extract_tasks_ollama(context_texts: List[str]) -> List[Dict[str, Any]]
         return out
 
 __all__ = ["extract_tasks_rules", "extract_tasks_ollama"]
+    
