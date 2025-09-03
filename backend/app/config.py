@@ -1,7 +1,10 @@
 import os
 
 API_TITLE = "Meeting → Issues API"
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+ALLOWED_ORIGINS = [
+  "http://127.0.0.1:8081", "http://localhost:8081",
+  "http://localhost:5173", "http://127.0.0.1:5173",
+]
 
 # vector store choice: 'faiss' (if installed) or 'memory'
 RAG_STORE = os.getenv("RAG_STORE", "faiss")

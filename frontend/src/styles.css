@@ -1,0 +1,41 @@
+body { margin: 0; font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #e6eef8; background:#011a3a; }
+.wrap { max-width: 980px; margin: 24px auto 64px; padding: 0 16px; }
+h1 { margin: 0 0 12px; }
+h2 { margin: 244px 0 8px; }
+
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.txt, .num { background:#101522; color:#e6eef8; border:1px solid #233048; border-radius: 8px; padding: 8px 10px; }
+.txt.full { width: 100%; box-sizing: border-box; }
+.num { width: 80px; text-align: center; }
+.btn { background:#121a2a; color:#e6eef8; border:1px solid #2a3958; border-radius: 8px; padding: 8px 12px; cursor:pointer; }
+.btn:hover { border-color:#4766a9; }
+
+.bar { height: 10px; background:#1a2030; border-radius: 6px; overflow: hidden; margin: 8px 0; }
+.barFill { height: 100%; width: 0%; background: linear-gradient(90deg, #94051f, #39d5ff, #9b6bff); transition: width .15s linear; }
+
+.small { font-size: 12px; opacity: .8; }
+.muted { color: #ffffff; opacity: .8; }
+
+.card { background:#0e1524; border:1px solid #243251; padding: 12px; border-radius: 10px; }
+
+.tasks { display: grid; gap: 10px; margin: 10px 0; }
+.task { background:#0e1524; border:1px solid #243251; padding: 12px; border-radius: 10px; }
+.tTitle { font-weight: 700; margin-bottom: 6px; }
+.tBody { white-space: pre-wrap; font-size: 13px; }
+.tMeta { font-size: 12px; opacity: .8; }
+.preview { margin-top: 16px; }
+button.border.p-2 { border-radius: 999px; }
+input[type="range"] { width: 290px; }
+
+/* —— chips / segmented buttons —— */
+.chipbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.chip{
+  background:#121a2a;border:1px solid #2a3958;color:#e6eef8;
+  padding:6px 12px;border-radius:999px;cursor:pointer;
+  font-size:13px; line-height:1; user-select:none;
+}
+.chip:hover{border-color:#4766a9}
+.chip.active{background:#193056;border-color:#5b83d1;box-shadow:0 0 0 2px #20365c inset}
+.chip.runall{padding:6px 12px;font-weight:700}
+
+.tooltip{font-size:12px;opacity:.8;margin-left:8px}
