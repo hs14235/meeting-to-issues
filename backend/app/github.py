@@ -1,6 +1,8 @@
 # backend/app/github.py
 from typing import List, Optional, Dict, Any
 import os, httpx
+import hashlib, urllib.parse as up
+
 
 BASE = "https://api.github.com"
 
@@ -42,3 +44,30 @@ async def create_issue(repo: str, title: str, body: str,
             r = await client.post(f"{BASE}/repos/{repo}/issues", headers=_headers(), json=payload)
         r.raise_for_status()
         return r.json()
+
+
+async def find_existing_issue(repo: str, title: str):
+    """Return first open issue that already has this exact title, else None."""
+    import urllib.parse as up
+    q = f'repo:{repo} is:issue is:open in:title "{title}"'
+    params = {"q": q}
+    async with httpx.AsyncClient(timeout=30) as client:
+        r = await client.get(f"{BASE}/search/issues", headers=_headers(), params=params)
+        r.raise_for_status()
+        items = r.json().get("items", [])
+        return items[0] if items else None
+    
+
+def task_fingerprint(title: str, body: str) -> str:
+    s = (title or "").strip() + "\n" + (body or "").strip()
+    return hashlib.sha1(s.encode("utf-8")).hexdigest()[:12]
+
+async def find_issue_by_fp(repo: str, fp: str):
+    # search an open issue that already has this fingerprint in body
+    q = f'repo:{repo} is:issue is:open in:body "fp:{fp}"'
+    params = {"q": q}
+    async with httpx.AsyncClient(timeout=30) as client:
+        r = await client.get(f"{BASE}/search/issues", headers=_headers(), params=params)
+        r.raise_for_status()
+        items = r.json().get("items", [])
+        return items[0] if items else None
